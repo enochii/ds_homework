@@ -7,23 +7,23 @@
 #include <iostream>
 
 class parser {
-	
+
 	enum OP {
 		RIGHT = 1,
-		
+
 		ADD,
 		SUB,
-		
+
 		MUL,
 		DIV,
-		
+
 		LEFT,
 	};
 	const char OP2char[10] = {
 		' ', ')', '+', '-', '*', '/','(',
 	};
 
-	//è¡¨è¾¾å¼çš„æœ€å°å•å…ƒï¼Œæ•°å­—æˆ–è€…æ“ä½œç¬¦
+	//±í´ïÊ½µÄ×îĞ¡µ¥Ôª£¬Êı×Ö»òÕß²Ù×÷·û
 	struct object {
 		typedef union {
 			double num;
@@ -33,22 +33,22 @@ class parser {
 		bool isnumber;
 		VAL val;
 
-		//é»˜è®¤ä¸ºæ•°å­—
+		//Ä¬ÈÏÎªÊı×Ö
 		//object(int _val, bool _isnumber = true) :val(_val), isnumber(_isnumber) {}
 	};
 
-	std::stack<object>			ops;//å­˜å‚¨operatorçš„æ ˆ
-	std::string						exp;//è¯»å–çš„ä¸€ä¸ªä¸­ç¼€è¡¨è¾¾å¼
-	object							obj;	//parseä¹‹åè·å¾—çš„obj
-	int									ptr;	//æŒ‡é’ˆ
-	bool								last_is_lb;	//ä¸Šä¸€ä¸ªæ˜¯å¦æ˜¯å·¦æ‹¬å·æˆ–è€…èµ·å§‹ä½
-	bool								number_prefix;	//å½“å‰åœ¨parsingçš„æ•°å­—æ˜¯å¦æœ‰æ­£è´Ÿå·
-	/*
-	ä»¥ä¸Šä¸¤ä¸ªboolå˜é‡æ˜¯ä¸ºäº†è§£æå¸¦ç¬¦å·ä½çš„æ•°å­—
-	*/
+	std::stack<object>			ops;//´æ´¢operatorµÄÕ»
+	std::string						exp;//¶ÁÈ¡µÄÒ»¸öÖĞ×º±í´ïÊ½
+	object							obj;	//parseÖ®ºó»ñµÃµÄobj
+	int									ptr;	//Ö¸Õë
+	bool								last_is_lb;	//ÉÏÒ»¸öÊÇ·ñÊÇ×óÀ¨ºÅ»òÕßÆğÊ¼Î»
+	bool								number_prefix;	//µ±Ç°ÔÚparsingµÄÊı×ÖÊÇ·ñÓĞÕı¸ººÅ
+														/*
+														ÒÔÉÏÁ½¸öbool±äÁ¿ÊÇÎªÁË½âÎö´ø·ûºÅÎ»µÄÊı×Ö
+														*/
 public:
 	//ctor
-	parser(std::string _exp):exp(_exp){}
+	parser(std::string _exp) :exp(_exp) {}
 
 	void translation()
 	{
@@ -67,7 +67,7 @@ public:
 					//obj.val = -obj.val;
 					assert(!ops.empty());
 
-					if (ops.top().val.op ==SUB) {
+					if (ops.top().val.op == SUB) {
 						obj.val.num = -obj.val.num;
 					}
 					ops.pop();
@@ -77,12 +77,12 @@ public:
 				cout << obj.val.num << ' ';
 			}
 			else {
-				//å¤„ç†ç¬¦å·
+				//´¦Àí·ûºÅ
 				OP op = obj.val.op;
 				switch (op) {
 				case LEFT: {
 					ops.push(obj);
-					
+
 					break;
 				}
 				case RIGHT: {
@@ -112,7 +112,7 @@ public:
 						}
 						else break;
 					}
-					//å‹å…¥æ–°æ“ä½œç¬¦
+					//Ñ¹ÈëĞÂ²Ù×÷·û
 					ops.push(obj);
 				}
 				}
@@ -125,7 +125,7 @@ public:
 		}
 		while (!ops.empty()) {
 			cout << " " << OP2char[ops.top().val.op];
-			
+
 			ops.pop();
 		}
 	}
@@ -134,7 +134,7 @@ public:
 	{
 		exp = _exp;
 	}
-	
+
 private:
 	void space_or_end()
 	{
@@ -146,7 +146,7 @@ private:
 		while (exp[ptr] == ' ')++ptr;
 
 		switch (exp[ptr]) {
-		
+
 		case '+':
 		case '-': {
 			parse_add_and_mul();
@@ -178,7 +178,7 @@ private:
 			break;
 		}
 		}
-		//å¦‚æœå½“å‰çš„objä¸æ˜¯å·¦æ‹¬å·ï¼ŒæŠŠæ ‡å¿—ä½ç½®ä¸ºfalse
+		//Èç¹ûµ±Ç°µÄobj²»ÊÇ×óÀ¨ºÅ£¬°Ñ±êÖ¾Î»ÖÃÎªfalse
 		if (obj.isnumber || obj.val.op != OP::LEFT) {
 			last_is_lb = false;
 		}
@@ -187,17 +187,17 @@ private:
 	void parse_number()
 	{
 		//std::cout<<exp[ptr];
-		assert(isdigit(exp[ptr]));//ç¡®è®¤é¦–ä½ä¸ºæ•°å­—
+		assert(isdigit(exp[ptr]));//È·ÈÏÊ×Î»ÎªÊı×Ö
 
 		double int_part = 0.0;
 		while (isdigit(exp[ptr])) {
 			int_part = (exp[ptr] - '0') + int_part * 10.0;
 			++ptr;
 		}
-		//å¦‚æœæœ‰çš„è¯ï¼Œå¤„ç†å°æ•°éƒ¨åˆ†
+		//Èç¹ûÓĞµÄ»°£¬´¦ÀíĞ¡Êı²¿·Ö
 		if (exp[ptr] == '.') {
 			double weight = 0.1;
-			++ptr;//è¿‡æ»¤å°æ•°ç‚¹
+			++ptr;//¹ıÂËĞ¡Êıµã
 
 			while (isdigit(exp[ptr])) {
 				int_part += weight * (exp[ptr] - '0');
@@ -214,7 +214,7 @@ private:
 	{
 		obj.isnumber = false;
 		obj.val.op = RIGHT;
-		
+
 		++ptr;
 	}
 	void parse_lb()
@@ -227,7 +227,7 @@ private:
 	void parse_add_and_mul()
 	{
 		obj.isnumber = false;
-		obj.val.op = (exp[ptr] == '+') ? ADD :SUB;
+		obj.val.op = (exp[ptr] == '+') ? ADD : SUB;
 
 		++ptr;
 	}

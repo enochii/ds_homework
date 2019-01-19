@@ -55,12 +55,12 @@ public:
 #ifdef BPL
 		std::cout << "我是" << name << "，我被析构了！" << std::endl;
 #endif // BPL
-
-
 #ifndef BPL
 		std::cout << "大家好，我叫" << name << "，我死了，甚至不知道为什么，就因为我的爸爸或爷爷或...解散了家庭吗";
 		std::cout << "   不过那也无所谓，因为我的子子孙孙会陪着我一起离开" << std::endl;
 #endif // DEBUG
+
+
 	}
 #endif // LOG
 

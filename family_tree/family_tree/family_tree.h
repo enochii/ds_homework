@@ -9,7 +9,8 @@
 class family {
 private:
 	member ancestor;
-	member& search_member_by_name(const std::string& name);
+public:
+	member* search_member_by_name(const std::string& name);
 
 public:
 	family(const std::string& name):ancestor(name){}

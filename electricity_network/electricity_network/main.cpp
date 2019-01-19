@@ -12,7 +12,7 @@ using std::endl;
 
 int main(void)
 {
-	cout << sizeof(std::vector<bool>(1, 0)[0]) << endl;
+	//cout << sizeof(std::vector<bool>(1, 0)[0]) << endl;
 
 	cout << "**                    电网模拟系统                    **" << endl;
 	cout << std::string(57, '=') << endl;

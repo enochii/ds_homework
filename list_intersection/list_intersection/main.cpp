@@ -8,7 +8,7 @@ using namespace std;
 
 int test_time = 0;
 
-void solve(ifstream& file)
+void solve(istream& file)
 {
 	cout << "第 " << ++test_time << " 次测试" << endl;
 	//第一个链表
@@ -70,7 +70,8 @@ int main()
 		solve(fin);
 		cout << endl;
 	}
-
+	cout << "以上是测试结果，你可以选择继续输入测试数据\n测试数据为两个链表，-1代表一个链表的结束\n";
+	solve(cin);
 
 	system("pause");
 	return 0;

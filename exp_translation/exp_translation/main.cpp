@@ -26,7 +26,17 @@ int main()
 
 		cout << "\n" << endl;
 	}
-	
+
+	cout << "以上是测试结果，你还可以继续输入测试数据\n请输入合法的表达式：\n";
+	std::string exp;
+
+	getline(cin, exp);
+	//if (exp[exp.size() - 1] == '\n')cout << "0-0";
+	cout << "转换前：" << exp << endl;
+	cout << "转换后：";
+	pr.set_exp(exp);
+	pr.translation();
+
 	system("pause");
 
 	return 0;

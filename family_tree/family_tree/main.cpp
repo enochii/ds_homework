@@ -32,6 +32,7 @@ int main()
 	while (command[0] != 'E') {
 		std::cout << "请选择要执行的操作：";
 		std::cin >> command;
+		
 		switch (command[0]){
 		case 'A': {
 			command_A(ft);

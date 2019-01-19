@@ -12,6 +12,11 @@ void command_A(family& ft)
 	std::string name;
 	std::cin >> name;
 
+	if (ft.search_member_by_name(name) == nullptr) {
+		std::cout << "找不到该成员 " << name << "，请确认后重新输入！";
+		return;
+	}
+
 	std::cout << "请输入" << name << "的儿女人数：";
 	int n = (1 >> 30);
 	std::cin >> n;
@@ -49,6 +54,11 @@ void command_B(family& ft)
 	std::cout << "请输入" << old_name << "新添加的儿子（或女儿）的姓名：";
 	std::cin >> new_name;
 
+	if (ft.search_member_by_name(old_name) == nullptr) {
+		std::cout << "找不到该成员 " << old_name << "，请确认后重新输入！";
+		return;
+	}
+
 	ft.add_a_descendant(old_name, new_name);
 	
 	ft.show_part(old_name);
@@ -63,6 +73,10 @@ void command_C(family& ft)
 	std::cin >> name;
 
 	std::cout << "要解散家庭的人是：" << name << std::endl;
+	if (ft.search_member_by_name(name) == nullptr) {
+		std::cout << "找不到该成员 " << name << "，请确认后重新输入！";
+		return;
+	}
 	ft.show_part(name);
 
 	ft.erase_part(name);
@@ -75,6 +89,11 @@ void command_D(family& ft)
 	std::cin >> old_name;
 	std::cout << "请输入更改后的姓名：";
 	std::cin >> new_name;
+
+	if (ft.search_member_by_name(old_name) == nullptr) {
+		std::cout << "找不到该成员 " << old_name << "，请确认后重新输入！";
+		return;
+	}
 
 	ft.modify_name(old_name, new_name);
 	std::cout << old_name << "已改名为" << new_name << std::endl;
